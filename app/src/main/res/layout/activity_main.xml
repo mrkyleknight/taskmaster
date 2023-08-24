@@ -9,12 +9,12 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/usernameDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="User’s tasks"
         android:layout_marginStart="60dp"
         android:layout_marginTop="50dp"
-        android:text="@string/my_task"
         android:textSize="34sp"
         app:autoSizeTextType="none"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,9 +76,10 @@
         android:layout_marginTop="65dp"
         android:text="Task 1"
         app:layout_constraintEnd_toStartOf="@+id/button_task2"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameDisplay" />
 
     <Button
         android:id="@+id/button_task2"
@@ -89,7 +90,7 @@
         app:layout_constraintEnd_toStartOf="@+id/button_task3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button_task1"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameDisplay" />
 
     <Button
         android:id="@+id/button_task3"
@@ -100,6 +101,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button_task2"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameDisplay" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
