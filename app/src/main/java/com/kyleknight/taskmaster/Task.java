@@ -4,6 +4,7 @@ public class Task {
     private String title;
     private String description;
     private State state;
+    private String status;
 
     public enum State {
         NEW, ASSIGNED, IN_PROGRESS, COMPLETED
@@ -14,7 +15,14 @@ public class Task {
         this.description = description;
         this.state = state;
     }
+    public String getStatus() {
+        return status;
+    }
 
+    // Setter for the status
+    public void setStatus(String status) {
+        this.status = status;
+    }
     // Getter for title
     public String getTitle() {
         return title;

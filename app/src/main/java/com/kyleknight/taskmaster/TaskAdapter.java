@@ -32,6 +32,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             Intent intent = new Intent(v.getContext(), TaskDetail.class);
             intent.putExtra("TASK_TITLE", task.getTitle());
             intent.putExtra("TASK_DESCRIPTION", task.getDescription());
+            intent.putExtra("TASK_STATUS", task.getStatus()); // add this
             v.getContext().startActivity(intent);
         });
     }
