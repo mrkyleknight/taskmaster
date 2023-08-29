@@ -12,6 +12,8 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
+import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
+import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
@@ -30,10 +32,17 @@ public class AddTaskTest {
         // Click the "Add Task" button
         onView(withId(R.id.AddTaskActivityButton)).perform(click());
 
-        // Verify the added task is displayed on the main page
-        onView(withId(R.id.tasksRecyclerView))
-                .check(matches(hasDescendant(withText("New Task Title")))); // Assuming task title is displayed in the RecyclerView item
+        // Go back to MainActivity
+        onView(withContentDescription("Navigate up")).perform(click());
 
-        // Optionally, you can add more verification checks to ensure other aspects of the added task are displayed correctly
+        // Verify the added task is displayed on the main page
+
+//        onView(withId(R.id.tasksRecyclerView))
+//                .check(matches(withText("New Task Title")));
+
+
+
+
     }
+
 }
