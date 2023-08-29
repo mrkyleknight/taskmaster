@@ -19,19 +19,21 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
+        preferences = PreferenceManager.getDefaultSharedPreferences(this); // Initialize SharedPreferences
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+
+        setupUserNicknameEditText();
+        setupSaveButton();
     }
 
     void setupUserNicknameEditText() {
-        String userNickname = preferences.getString(USER_NICKNAME_TAG, null);
+        String userNickname = preferences.getString(USER_NICKNAME_TAG, "user");  // default value "user"
         ((EditText)findViewById(R.id.UserProfileActivityInputText)).setText(userNickname);
     }
-
-
 
     void setupSaveButton() {
         ((Button)findViewById(R.id.UserProfileActivitySaveButton)).setOnClickListener(v -> {
@@ -42,11 +44,8 @@ public class UserProfileActivity extends AppCompatActivity {
             preferencesEditor.putString(USER_NICKNAME_TAG, userNicknameString);
             preferencesEditor.apply();
 
-
             Toast.makeText(UserProfileActivity.this, "Settings saved!", Toast.LENGTH_SHORT).show();
         });
-
-
     }
 
     @Override
@@ -58,4 +57,3 @@ public class UserProfileActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
-

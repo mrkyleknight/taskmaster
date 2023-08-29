@@ -18,18 +18,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static List<Task> tasks = new ArrayList<>(); // Make this static so that you can access and modify it from the AddTasks activity
+    public static List<Task> tasks = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String username = sharedPreferences.getString(UserProfileActivity.USER_NICKNAME_TAG, "User");
-
-        TextView usernameDisplay = findViewById(R.id.usernameDisplay);
-        usernameDisplay.setText(username + "’s tasks");
 
         ImageView settingsButton = findViewById(R.id.MainActivitySettingsButton);
         settingsButton.setOnClickListener(v -> {
@@ -49,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // Setting up the RecyclerView
+
         RecyclerView tasksRecyclerView = findViewById(R.id.tasksRecyclerView);
         tasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         TaskAdapter taskAdapter = new TaskAdapter(tasks);  // Use the static tasks list here
@@ -59,7 +53,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Refresh the RecyclerView when coming back to the MainActivity to reflect any newly added tasks
+
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String username = sharedPreferences.getString(UserProfileActivity.USER_NICKNAME_TAG, "User");
+        TextView usernameDisplay = findViewById(R.id.usernameDisplay);
+        usernameDisplay.setText(username + "’s tasks");
+
+
         RecyclerView tasksRecyclerView = findViewById(R.id.tasksRecyclerView);
         tasksRecyclerView.getAdapter().notifyDataSetChanged();
     }
