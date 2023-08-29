@@ -55,33 +55,50 @@ public class UserProfileActivityTest {
 
 
     @Test
-    public void testTaskClickDisplaysTaskName() {
-        // Wait for the RecyclerView to load data (replace with idling resources if you can)
-        waitFor(2000);
+    public void testEditUsernameAndCheckHomepage() {
+        // Navigate to UserProfileActivity
+        onView(withId(R.id.MainActivitySettingsButton)).perform(click());
 
-        // Check if RecyclerView is displayed
-        onView(withId(R.id.tasksRecyclerView)).check(matches(isDisplayed()));
+        // Clear existing text in the EditText
+        onView(withId(R.id.UserProfileActivityInputText)).perform(clearText());
 
-        // Here we assume that the RecyclerView should have at least one item for this test to be meaningful.
-        // If the RecyclerView is empty, then the below line will fail, giving us an indication that the test can't proceed.
-        onView(withId(R.id.tasksRecyclerView)).check(matches(hasMinimumChildCount(1)));
+        // Type the new username into the EditText with the correct ID
+        onView(withId(R.id.UserProfileActivityInputText))
+                .perform(typeText("NewUsername"));
 
-        // Scroll to position 0 before clicking
-        onView(withId(R.id.tasksRecyclerView)).perform(RecyclerViewActions.scrollToPosition(0));
+        // Click save button with the correct ID
+        onView(withId(R.id.UserProfileActivitySaveButton)).perform(click());
 
-        // Click on the item at position 0
-        onView(withId(R.id.tasksRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        // Go back to MainActivity
+        onView(withContentDescription("Navigate up")).perform(click());
 
-        // Assert that the task name is displayed correctly
-        onView(withId(R.id.textView2)).check(matches(withText("Task1")));
+        // Check that the new username is displayed on the homepage
+        onView(withId(R.id.usernameDisplay))
+                .check(matches(withText("NewUsername’s tasks")));
     }
 
-    // Helper function to introduce delay
-    private void waitFor(long millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+    private void waitForNonEmptyRecyclerView(int recyclerViewId, long timeout) {
+        long startTime = System.currentTimeMillis();
+        long endTime = startTime + timeout;
+
+        do {
+            try {
+                onView(withId(recyclerViewId)).check(matches(hasMinimumChildCount(1)));
+                return;
+            } catch (AssertionError e) {
+                if (System.currentTimeMillis() > endTime) {
+                    throw e;
+                }
+            }
+
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                // Do nothing
+            }
+        } while (true);
     }
+
 }
